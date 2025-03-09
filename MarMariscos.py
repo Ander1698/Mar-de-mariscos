@@ -5,12 +5,35 @@ def incluir_insumo():
 def consultar_platos():  
     print("Opción en construcción")
 
-
 def aplicar_descuento():  
     print("Opción en construcción")
 
 def generar_reporte():  
     print("Opción en construcción")
+
+# Función para modificar un platillo
+def aplicar_modificacion():
+    print("Función para modificar un platillo en construcción.")
+    modificar = input("Ingresar el código del platillo a modificar: ")
+    
+    # Ejemplo de listas para almacenar los datos de los platillos y precios
+    codigo = ['001', '002', '003']
+    comida = ['Tacos', 'Burritos', 'Quesadillas']
+    precio = [50, 60, 45]
+    
+    # Lógica para buscar y modificar un platillo
+    for x in range(len(codigo)):
+        if codigo[x] == modificar:
+            comida[x] = input("Ingresar el nuevo platillo: ")
+            precio[x] = int(input("Ingresar el nuevo precio: "))
+            print("Platillo modificado.")
+            break
+    else:
+        print("El código ingresado no existe.")  # Si el código no se encuentra
+
+# Función para borrar insumo
+def borrar_insumo():
+    print("No se puede borrar un insumo, ya que no se han agregado insumos aún.")
 
 def mostrar_menu():  
     print("\nMenú de opciones:")
@@ -18,7 +41,9 @@ def mostrar_menu():
     print("2. Consultar Platos")
     print("3. Aplicar Descuento/Promoción")
     print("4. Generar Reporte de Costos")
-    print("5. Salir")
+    print("5. Modificar Platillo")  
+    print("6. Borrar Insumo")  
+    print("7. Salir")  
 
 def menu_secundario():
     print("\n¿Quieres volver al menú principal?")
@@ -66,6 +91,10 @@ def main():  # Controla el flujo del programa y llama a las funciones dependiend
             elif opcion == 4:
                 generar_reporte()
             elif opcion == 5:
+                aplicar_modificacion()  # Función para modificar platillo
+            elif opcion == 6:
+                borrar_insumo()  
+            elif opcion == 7:
                 print("Saliendo del sistema...")
                 break  # Si selecciona "Salir", termina el ciclo y finaliza el programa
             else:
@@ -80,5 +109,4 @@ def main():  # Controla el flujo del programa y llama a las funciones dependiend
 # Inicia el programa
 if __name__ == "__main__":
     main()
-
 
