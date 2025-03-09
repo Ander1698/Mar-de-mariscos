@@ -66,11 +66,13 @@ def main():  # Controla el flujo del programa y llama a las funciones dependiend
             elif opcion == 4:
                 generar_reporte()
             elif opcion == 5:
+                borrar_insumo()
+            elif opcion == 6:
                 print("Saliendo del sistema...")
-                break  # Si selecciona "Salir", termina el ciclo y finaliza el programa
+                break  # Termina el ciclo y finaliza el programa
             else:
-                print("Opción no válida. Intente nuevamente.")  # Si la opción no es válida
-
+                print("Opción no válida. Intente nuevamente.")
+             
             # Preguntar al usuario si quiere volver al menú principal o salir
             if not menu_secundario():
                 break  # Si selecciona "No", salir del ciclo y terminar el programa
