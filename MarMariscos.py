@@ -18,7 +18,8 @@ def mostrar_menu():
     print("2. Consultar Platos")
     print("3. Aplicar Descuento/Promoción")
     print("4. Generar Reporte de Costos")
-    print("5. Salir")
+    print("5. modificar)
+    print("6. Salir")
 
 def menu_secundario():
     print("\n¿Quieres volver al menú principal?")
@@ -65,7 +66,15 @@ def main():  # Controla el flujo del programa y llama a las funciones dependiend
                 aplicar_descuento()
             elif opcion == 4:
                 generar_reporte()
-            elif opcion == 5:
+            elif opcion ==5:
+                aplicar_modificacion()
+                 modificar = input("Igresar el código a modificar")
+                   for x in range(len(código)):
+                       if código[x] == modificar:
+                           comida[x] = input("ingresar nuevo platillo")
+                           precio[x] = int(input("ingresar nuevo precio"))
+                   print("platillo modificado")
+            elif opcion == 6:
                 print("Saliendo del sistema...")
                 break  # Si selecciona "Salir", termina el ciclo y finaliza el programa
             else:
