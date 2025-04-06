@@ -1,99 +1,50 @@
-import os
-
 # Función para limpiar la pantalla de la terminal
+import os
 def limpiar_pantalla():
     os.system("cls" if os.name == "nt" else "clear")
 
-# Función para agregar insumos al inventario (5 máximo)
+# Función para agregar insumos al inventario 5 maximo por insumo
 def incluir_insumo(insumos):
-    """
-    Permite al usuario agregar insumos al diccionario insumos.
-    Se puede guardar un máximo de 5 insumos y cada uno puede tener hasta 5 unidades.
-    """
     limpiar_pantalla()
     max_insumos = 5
     while len(insumos) < max_insumos:
         nombre = input("Ingrese el nombre del insumo: ")
-        codigo = str(len(insumos)).zfill(2)  # Código de 2 dígitos, ej. '01'
+        codigo = str(len(insumos)).zfill(2)
         cantidad = int(input(f"\n¿Cuántos '{nombre}' desea guardar? (máximo 5): "))
-
         if cantidad > 5:
             print("\nLa cantidad máxima permitida por insumo es 5.")
             continue
-
         insumos[codigo] = {"nombre": nombre, "cantidad": cantidad}
         print(f"\nInsumo '{nombre}' con código {codigo} guardado correctamente.")
-
         continuar = input("\n¿Desea guardar otro insumo? (si/no): ").lower()
         if continuar != "si":
             break
 
-# Función para mostrar el menú de platillos de comida
-def consultar_platos():
-    """
-    Muestra el menú de platillos con precios y los que tienen descuento.
-    """
-    platos = [
-        ("Pulpo a la gallega", 8000),
-        ("Langosta al ajillo", 7500),
-        ("Pescado entero frito", 5500),
-        ("Coctel de mariscos", 10500),
-        ("Sopa de mariscos", 7000),
-        ("Arroz con mariscos", 5000),
-        ("Tacos de pescado", 4500)
-    ]
-
-    con_descuento = ["Coctel de mariscos", "Sopa de mariscos", "Arroz con mariscos", "Tacos de pescado"]
-
+# Función para mostrar el menú de los platillos
+def consultar_platos(platos):
     print("\n--- Menú de Platos ---")
-    for i, (plato, precio) in enumerate(platos):
-        descuento_texto = " (15% de descuento)" if plato in con_descuento else ""
-        print(f"{i + 1}. {plato} - {precio} colones{descuento_texto}")
+    for i, (nombre, precio) in enumerate(platos):
+        descuento = " (15% de descuento)" if nombre in ["Coctel de mariscos", "Sopa de mariscos", "Arroz con mariscos", "Tacos de pescado"] else ""
+        print(f"{i+1}. {nombre} - {precio} colones{descuento}")
 
-# Función para mostrar las bebidas disponibles
+# Función para mostrar menu de las bebidas
 def consultar_bebidas():
-    """
-    Muestra la lista de bebidas con un precio fijo de 2000 colones cada una.
-    """
     bebidas = [
-        "Piña colada",
-        "Mojito",
-        "Cerveza artesanal",
-        "Whisky con hielo",
-        "Ron con Coca-Cola",
-        "Margarita",
-        "Gaseosa de naranja",
-        "Agua tónica",
-        "Refresco natural de tamarindo",
-        "Limonada con hierbabuena"
+        "Piña colada", "Mojito", "Cerveza artesanal", "Whisky con hielo", "Ron con Coca-Cola",
+        "Margarita", "Gaseosa de naranja", "Agua tónica", "Refresco natural de tamarindo", "Limonada con hierbabuena"
     ]
-
     print("\n--- Menú de Bebidas (2000 colones cada una) ---")
     for i, bebida in enumerate(bebidas):
-        print(f"{i + 1}. {bebida} - 2000 colones")
+        print(f"{i+1}. {bebida} - 2000 colones")
 
-# Función para que el usuario seleccione un platillo del menú
-def seleccionar_platillo():
-    """
-    Permite al usuario seleccionar un platillo del menú y calcula si tiene descuento.
-    """
-    platos = [
-        ("Pulpo a la gallega", 8000),
-        ("Langosta al ajillo", 7500),
-        ("Pescado entero frito", 5500),
-        ("Coctel de mariscos", 10500),
-        ("Sopa de mariscos", 7000),
-        ("Arroz con mariscos", 5000),
-        ("Tacos de pescado", 4500)
-    ]
-    con_descuento = ["Coctel de mariscos", "Sopa de mariscos", "Arroz con mariscos", "Tacos de pescado"]
-
-    consultar_platos()
+# Función para seleccionar platillo
+def seleccionar_platillo(platos):
+    consultar_platos(platos)
     try:
         opcion = int(input("\nSeleccione el número del platillo que desea: ")) - 1
         if 0 <= opcion < len(platos):
             platillo, precio = platos[opcion]
-            tiene_descuento = platillo in con_descuento
+            tiene_descuento = platillo in ["Coctel de mariscos", "Sopa de mariscos", "Arroz con mariscos", "Tacos de pescado"]
             print(f"\nUsted seleccionó: {platillo} - {precio} colones")
             return platillo, precio, tiene_descuento
         else:
@@ -102,24 +53,12 @@ def seleccionar_platillo():
         print("\nEntrada no válida.")
     return None, 0, False
 
-# Función para que el usuario seleccione una bebida
+# Función para seleccionar bebida
 def seleccionar_bebida():
-    """
-    Permite al usuario seleccionar una bebida del menú.
-    """
     bebidas = [
-        "Piña colada",
-        "Mojito",
-        "Cerveza artesanal",
-        "Whisky con hielo",
-        "Ron con Coca-Cola",
-        "Margarita",
-        "Gaseosa de naranja",
-        "Agua tónica",
-        "Refresco natural de tamarindo",
-        "Limonada con hierbabuena"
+        "Piña colada", "Mojito", "Cerveza artesanal", "Whisky con hielo", "Ron con Coca-Cola",
+        "Margarita", "Gaseosa de naranja", "Agua tónica", "Refresco natural de tamarindo", "Limonada con hierbabuena"
     ]
-
     consultar_bebidas()
     try:
         opcion = int(input("\nSeleccione el número de la bebida que desea: ")) - 1
@@ -133,91 +72,165 @@ def seleccionar_bebida():
         print("\nEntrada no válida.")
     return None, 0
 
-# Menú para empleados con opciones de inventario y consulta
-def menu_empleados(insumos):
-    """
-    Interfaz para empleados con opciones de agregar y consultar insumos,
-    ver menú, y opciones futuras de edición o eliminación.
-    """
+# Función creada por Francini para modificar insumos o platillos
+def modificar_elemento(insumos, platos):
+    print("\n¿Desea modificar un insumo o un platillo?")
+    eleccion = input("Escriba 'insumo' o 'platillo': ").lower()
+    if eleccion == "insumo":
+        for codigo, insumo in insumos.items():
+            print(f"Código {codigo}: {insumo['nombre']} - Cantidad: {insumo['cantidad']}")
+        codigo = input("\nIngrese el código del insumo a modificar: ")
+        if codigo in insumos:
+            nuevo_nombre = input("Nuevo nombre: ")
+            nueva_cantidad = int(input("Nueva cantidad: "))
+            insumos[codigo] = {"nombre": nuevo_nombre, "cantidad": nueva_cantidad}
+            print("Insumo modificado correctamente.")
+        else:
+            print("Código no encontrado.")
+    elif eleccion == "platillo":
+        consultar_platos(platos)
+        nombre_actual = input("Ingrese el nombre del platillo a modificar: ")
+        for i, (nombre, precio) in enumerate(platos):
+            if nombre.lower() == nombre_actual.lower():
+                nuevo_nombre = input("Nuevo nombre: ")
+                nuevo_precio = int(input("Nuevo precio: "))
+                platos[i] = (nuevo_nombre, nuevo_precio)
+                print("Platillo modificado correctamente.")
+                return
+        print("Platillo no encontrado.")
+    else:
+        print("Opción no válida.")
+
+# Función creada por Francini para borrar insumos o platillos
+def borrar_elemento(insumos, platos):
+    print("\n¿Desea borrar un insumo o un platillo?")
+    eleccion = input("Escriba 'insumo' o 'platillo': ").lower()
+    if eleccion == "insumo":
+        for codigo, insumo in insumos.items():
+            print(f"Código {codigo}: {insumo['nombre']} - Cantidad: {insumo['cantidad']}")
+        codigo = input("Ingrese el código del insumo a borrar: ")
+        if codigo in insumos:
+            del insumos[codigo]
+            print("Insumo eliminado correctamente.")
+        else:
+            print("Código no encontrado.")
+    elif eleccion == "platillo":
+        consultar_platos(platos)
+        nombre = input("Ingrese el nombre del platillo a borrar: ")
+        for i, (nombre_platillo, _) in enumerate(platos):
+            if nombre_platillo.lower() == nombre.lower():
+                del platos[i]
+                print("Platillo eliminado correctamente.")
+                return
+        print("Platillo no encontrado.")
+    else:
+        print("Opción no válida.")
+
+# Nueva opción: Lista de insumos
+def listar_insumos(insumos):
+    if not insumos:
+        print("\nNo hay insumos registrados.")
+    else:
+        print("\n--- Lista de Insumos ---")
+        for codigo, insumo in insumos.items():
+            print(f"Código {codigo}: {insumo['nombre']} - Cantidad: {insumo['cantidad']}")
+
+# Menú para empleados
+def menu_empleados(insumos, platos):
     while True:
         print("\n--- Menú para Empleados ---")
         print("1. Agregar insumo")
-        print("2. Ver menú con precios y descuentos")
-        print("3. Consultar insumos")
-        print("4. Modificar menú o insumos (en construcción)")
-        print("5. Borrar menú o insumos (en construcción)")
+        print("2. Ver menú de platillos")
+        print("3. Lista de insumos")
+        print("4. Modificar (platillo o insumo)")
+        print("5. Borrar (platillo o insumo)")
         print("6. Salir")
-
         try:
             opcion = int(input("\nSeleccione una opción: "))
             if opcion == 1:
                 incluir_insumo(insumos)
             elif opcion == 2:
-                consultar_platos()
+                consultar_platos(platos)
             elif opcion == 3:
-                print("\nLista de insumos disponibles:")
-                for codigo, insumo in insumos.items():
-                    print(f"Código {codigo}: {insumo['nombre']} - Cantidad: {insumo['cantidad']}")
-            elif opcion in [4, 5]:
-                print("\nFunción en construcción...")
+                listar_insumos(insumos)
+            elif opcion == 4:
+                modificar_elemento(insumos, platos)
+            elif opcion == 5:
+                borrar_elemento(insumos, platos)
             elif opcion == 6:
                 break
             else:
-                print("\nOpción inválida. Intente de nuevo.")
+                print("\nOpción inválida.")
         except ValueError:
             print("\nPor favor, ingrese un número válido.")
 
-# Menú para clientes/usuarios que permite seleccionar platos, bebidas y calcular total
-def menu_usuarios():
-    """
-    clientes que consulten el menú,
-    seleccionar platillos y bebidas, y calcular el total a pagar.
-    """
+# Menú para usuarios
+def menu_usuarios(platos):
     total = 0
     while True:
         print("\n--- Menú para Usuarios ---")
-        print("1. Consultar menú con precios y descuentos")
-        print("2. Seleccionar platillo")
-        print("3. Seleccionar bebida")
-        print("4. Total del costo")
-        print("5. Salir")
-
+        print("1. Ver menú de platillos")
+        print("2. Ver bebidas")
+        print("3. Seleccionar platillo")
+        print("4. Seleccionar bebida")
+        print("5. Ver total y pagar")
+        print("6. Salir")
         try:
             opcion = int(input("\nSeleccione una opción: "))
             if opcion == 1:
-                consultar_platos()
+                consultar_platos(platos)
             elif opcion == 2:
-                platillo, precio, tiene_descuento = seleccionar_platillo()
-                if platillo:
-                    if tiene_descuento:
-                        descuento = precio * 0.15
-                        precio -= descuento
-                        print(f"\nDescuento aplicado: -{int(descuento)} colones")
-                    total += precio
+                consultar_bebidas()
             elif opcion == 3:
+                platillo, precio, descuento = seleccionar_platillo(platos)
+                if platillo:
+                    if descuento:
+                        rebaja = precio * 0.15
+                        precio -= rebaja
+                        print(f"\nDescuento aplicado: -{int(rebaja)} colones")
+                    total += precio
+            elif opcion == 4:
                 bebida, precio_bebida = seleccionar_bebida()
                 if bebida:
                     total += precio_bebida
-            elif opcion == 4:
+            elif opcion == 5:
                 print(f"\nTotal a pagar: {int(total)} colones")
                 print("\nOpciones de pago:")
-                print("1. Pagar con tarjeta")
-                print("2. Pagar en efectivo")
-                input("Seleccione una opción para continuar...")
-            elif opcion == 5:
+                print("1. Tarjeta")
+                print("2. Efectivo")
+                metodo = input("Seleccione opción de pago: ")
+                if metodo == "1":
+                    monto = int(input("Ingrese el monto a pagar con tarjeta: "))
+                    if monto < total:
+                        print("Transacción denegada: monto insuficiente.")
+                    else:
+                        print("Transacción realizada con éxito.")
+                elif metodo == "2":
+                    monto = int(input("Ingrese el monto en efectivo: "))
+                    if monto < total:
+                        print("Pago insuficiente.")
+                    else:
+                        vuelto = monto - total
+                        print(f"Pago aceptado. Vuelto: {vuelto} colones")
+            elif opcion == 6:
                 break
             else:
-                print("\nOpción inválida. Intente de nuevo.")
+                print("\nOpción inválida.")
         except ValueError:
             print("\nPor favor, ingrese un número válido.")
 
-# Menú principal del sistema MarMariscos
+# Menú principal
 def menu():
-    """
-    Punto de entrada principal Permite al usuario elegir entre
-    menú de empleados, menú de usuarios o salir.
-    """
     insumos = {}
+    platos = [
+        ("Pulpo a la gallega", 8000),
+        ("Langosta al ajillo", 7500),
+        ("Pescado entero frito", 5500),
+        ("Coctel de mariscos", 10500),
+        ("Sopa de mariscos", 7000),
+        ("Arroz con mariscos", 5000),
+        ("Tacos de pescado", 4500)
+    ]
     while True:
         print("\n--- MarMariscos Sistema ---")
         print("1. Menú de empleados")
@@ -226,9 +239,9 @@ def menu():
         try:
             seleccion = int(input("\nSeleccione una opción: "))
             if seleccion == 1:
-                menu_empleados(insumos)
+                menu_empleados(insumos, platos)
             elif seleccion == 2:
-                menu_usuarios()
+                menu_usuarios(platos)
             elif seleccion == 3:
                 print("\n¡Gracias por usar MarMariscos!")
                 break
@@ -237,7 +250,7 @@ def menu():
         except ValueError:
             print("\nPor favor, ingrese un número válido.")
 
-# Ejecución principal del programa
+# Ejecutar programa
 if __name__ == "__main__":
     menu()
 
