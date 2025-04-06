@@ -134,19 +134,18 @@ def seleccionar_bebida():
     return None, 0
 
 # Menú para empleados con opciones de inventario y consulta
-def menu_empleados(insumos):
-    """
-    Interfaz para empleados con opciones de agregar y consultar insumos,
-    ver menú, y opciones futuras de edición o eliminación.
-    """
+def menu_empleados(insumos, platos):
     while True:
         print("\n--- Menú para Empleados ---")
         print("1. Agregar insumo")
         print("2. Ver menú con precios y descuentos")
         print("3. Consultar insumos")
-        print("4. Modificar menú o insumos (en construcción)")
-        print("5. Borrar menú o insumos (en construcción)")
-        print("6. Salir")
+        print("4. Modificar insumo")
+        print("5. Borrar insumo")
+        print("6. Agregar platillo")
+        print("7. Modificar platillo")
+        print("8. Borrar platillo")
+        print("9. Salir")
 
         try:
             opcion = int(input("\nSeleccione una opción: "))
@@ -158,9 +157,17 @@ def menu_empleados(insumos):
                 print("\nLista de insumos disponibles:")
                 for codigo, insumo in insumos.items():
                     print(f"Código {codigo}: {insumo['nombre']} - Cantidad: {insumo['cantidad']}")
-            elif opcion in [4, 5]:
-                print("\nFunción en construcción...")
+            elif opcion == 4:
+                modificar_insumo(insumos)
+            elif opcion == 5:
+                borrar_insumo(insumos)
             elif opcion == 6:
+                agregar_platillo(platos)
+            elif opcion == 7:
+                modificar_platillo(platos)
+            elif opcion == 8:
+                borrar_platillo(platos)
+            elif opcion == 9:
                 break
             else:
                 print("\nOpción inválida. Intente de nuevo.")
